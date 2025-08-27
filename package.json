@@ -1,23 +1,24 @@
 {
-  "name": "backend",
+  "name": "lecture-codes",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
-  "type": "module",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.0",
-    "typescript": "^5.9.2"
-  },
-  "devDependencies": {
-    "@types/express": "github:types/express",
-    "@types/jsonwebtoken": "^9.0.10"
+    "mongoose": "^8.9.0",
+    "typescript": "^5.7.2"
   }
 }
