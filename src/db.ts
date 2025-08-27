@@ -1,22 +1,22 @@
-import mongoose from "mongoose";
+import {Model,Schema} from "mongoose";
 
 // User schema
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
-const User = mongoose.model("User", userSchema);
+const UserModel = new Model("User", userSchema);
 
-// Tag schema
-const tagSchema = new mongoose.Schema({
+// Tag schema 
+const tagSchema = new Schema({
   title: { type: String, required: true, unique: true }
 });
 
-const Tag = mongoose.model("Tag", tagSchema);
+const Tag = new Model("Tag", tagSchema);
 
 // Content schema with enum for content type
-const contentSchema = new mongoose.Schema({
+const contentSchema = new Schema({
   title: String,
   link: String,
   type: { 
@@ -25,11 +25,11 @@ const contentSchema = new mongoose.Schema({
     required: true 
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
     validate: async function (value:any) {
-      const user = await User.findById(value);
+      const user = await UserModel.findById(value);
       if (!user) {
         throw new Error("User does not exist");
       }
@@ -37,15 +37,15 @@ const contentSchema = new mongoose.Schema({
   },
 });
 
-const Content = mongoose.model("Content", contentSchema);
+const Content =new Model("Content", contentSchema);
 
 // Link schema
-const linkSchema = new mongoose.Schema({
+const linkSchema = new Schema({
   hash: { type: String, required: true, unique: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const Link = mongoose.model("Link", linkSchema);
+const Link = new Model("Link", linkSchema);
 
 // Example query
 async function getContents() {
@@ -57,4 +57,4 @@ async function getContents() {
 }
 
 // Export models
-export { User, Tag, Content, Link, getContents };
+export { UserModel, Tag, Content, Link, getContents };
